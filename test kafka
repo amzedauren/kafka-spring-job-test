@@ -1,0 +1,23 @@
+$ bin/zookeeper-server-start.sh config/zookeeper.properties
+$ bin/kafka-server-start.sh config/server.properties
+$ bin/kafka-server-start.sh config/server-1.properties
+$ bin/kafka-server-start.sh config/server-2.properties
+
+
+//create topic
+
+$ sudo bin/kafka-topics.sh --create \
+--zookeeper localhost:2181 \
+--replication-factor 3 \
+--partitions 4 \
+--topic test-1
+
+
+//producer
+sudo bin/kafka-console-producer.sh --topic test-1 --bootstrap-server localhost:9092
+
+// consume topic 
+sudo bin/kafka-console-consumer.sh --topic test-1 --bootstrap-server localhost:9092 -consumer-property group.id=1
+
+//--from-beginning
+
